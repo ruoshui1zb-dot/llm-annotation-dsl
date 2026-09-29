@@ -11,7 +11,7 @@ df, N, oracle, naive, COEF = a.df, a.N, a.oracle, a.naive, a.COEF
 C_ORA, C_LLM, C_HUM, C_COR = "#222222", "#C0392B", "#7F8C8D", "#2E86C1"
 import time
 TS = time.strftime("%Y%m%d%H%M")
-PFX = "Lizhongbin-xxx"       # 图片命名：作者-编号-FigNN-时间戳
+PFX = "Lizhongbin-DSL"       # 图片命名：作者-编号-FigNN-时间戳
 
 # ---------- 图 1：LLM 错误集中在难判句子 ----------
 q = pd.read_csv("quality.csv")
