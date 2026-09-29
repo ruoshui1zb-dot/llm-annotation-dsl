@@ -9,7 +9,9 @@ import importlib.util
 spec = importlib.util.spec_from_file_location("a", "02_analysis.py"); a = importlib.util.module_from_spec(spec); spec.loader.exec_module(a)
 df, N, oracle, naive, COEF = a.df, a.N, a.oracle, a.naive, a.COEF
 C_ORA, C_LLM, C_HUM, C_COR = "#222222", "#C0392B", "#7F8C8D", "#2E86C1"
-PFX = "lizhongbin_Bxxx"      # 发布前按「作者拼音_推文编号」改名
+import time
+TS = time.strftime("%Y%m%d%H%M")
+PFX = "Lizhongbin-xxx"       # 图片命名：作者-编号-FigNN-时间戳
 
 # ---------- 图 1：LLM 错误集中在难判句子 ----------
 q = pd.read_csv("quality.csv")
@@ -24,7 +26,7 @@ for k in range(2):
 ax[0].set_ylim(0, 1.18); ax[0].set_title("与人工标签的一致率 (accuracy)")
 ax[1].axhline(0, color="k", lw=.8); ax[1].set_title("正面比例：LLM − 人工")
 ax[0].legend(frameon=False, loc="upper center", ncol=2, fontsize=9)
-fig.tight_layout(); fig.savefig(f"{PFX}_Fig01.png", dpi=200)
+fig.tight_layout(); fig.savefig(f"{PFX}-Fig01-{TS}.png", dpi=200)
 
 # ---------- 图 2：同一批数据，三套 prompt ----------
 rng = np.random.default_rng(7); n = 300
@@ -45,7 +47,7 @@ for pan, c in enumerate("AB"):
     ax[pan].set_yticks(range(len(rows))); ax[pan].set_yticklabels([r[0] for r in rows] if pan == 0 else [])
     ax[pan].set_title("情形 A：标签作被解释变量\n系数：难判句子 → 正面情绪" if c == "A"
                       else "情形 B：标签作解释变量\n系数：正面情绪 → 模拟收益")
-fig.tight_layout(); fig.savefig(f"{PFX}_Fig02.png", dpi=200)
+fig.tight_layout(); fig.savefig(f"{PFX}-Fig02-{TS}.png", dpi=200)
 
 # ---------- 图 3：人工标注量 vs 置信区间宽度 ----------
 cv = pd.read_csv("mc_curve.csv")
@@ -60,7 +62,7 @@ for pan, c in enumerate("AB"):
     ax[pan].set_xlabel("人工标注条数 n"); ax[pan].set_ylabel("95% 置信区间平均宽度")
     ax[pan].set_title("情形 A：标签作被解释变量" if c == "A" else "情形 B：标签作解释变量")
 ax[0].legend(frameon=False, fontsize=9)
-fig.tight_layout(); fig.savefig(f"{PFX}_Fig03.png", dpi=200)
+fig.tight_layout(); fig.savefig(f"{PFX}-Fig03-{TS}.png", dpi=200)
 
 # 打印图 2 的数字，供正文引用
 for c in "AB":
