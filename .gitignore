@@ -1,0 +1,6 @@
+__pycache__/
+.DS_Store
+corpus.csv
+FinancialPhraseBank-v1.0/
+__MACOSX/
+*.zip
